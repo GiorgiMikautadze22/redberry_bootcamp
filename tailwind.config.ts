@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        'custom': '5px 5px 12px 0 rgba(2, 21, 38, 0.08)',
+      },
     },
   },
   plugins: [],
