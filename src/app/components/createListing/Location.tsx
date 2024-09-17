@@ -1,5 +1,7 @@
 "use client"
 import React, { useState } from 'react'
+import CheckIcon from "../../assets/check.svg"
+import Image from 'next/image';
 
 const Location = () => {
 
@@ -9,6 +11,8 @@ const Location = () => {
         region: '',
         city: ''
     });
+
+
 
     const [errors, setErrors] = useState<{
         address?: string;
@@ -83,7 +87,15 @@ const Location = () => {
                         onChange={handleChange}
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
                     />
-                    {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
+
+                    {errors.address ?
+                        <p className="text-red-500 text-sm mt-1">{errors.address}</p>
+                        :
+                        <div className='flex gap-2 text-[14px]'>
+                            <Image src={CheckIcon} alt="check" />
+                            <p>მინიმუმ ორი სიმბოლო</p>
+                        </div>
+                    }
 
                 </div>
 
@@ -99,8 +111,14 @@ const Location = () => {
                         onChange={handleChange}
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
                     />
-                    {errors.zipCode && <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>}
-
+                    {errors.zipCode ?
+                        <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
+                        :
+                        <div className='flex gap-2 text-[14px]'>
+                            <Image src={CheckIcon} alt="check" />
+                            <p>მხოლოდ რიცხვები</p>
+                        </div>
+                    }
                 </div>
 
                 {/* Region Select Input */}
