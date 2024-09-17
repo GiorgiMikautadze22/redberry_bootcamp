@@ -1,13 +1,35 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Fira_Sans } from '@next/font/google';
+import localfont from '@next/font/local';
 import Header from "./components/Header";
 
 // Load FiraGo font with specific weights and styles
-const firaGo = Fira_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'], // Add desired font weights
-  style: ['normal', 'italic'], // Add specific styles
+// const firaGo = Fira_Sans({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '700'], // Add desired font weights
+//   style: ['normal', 'italic'], // Add specific styles
+// });
+
+const firaGo = localfont({
+  src: [
+    {
+      path: './fonts/FiraGo-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: "--font-fira-go",
+});
+
+const helveticaNeue = localfont({
+  src: [
+    {
+      path: './fonts/HelveticaNeueBlack.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: "--font-helveticaNeue",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-      // className={firaGo.className}
+        className={firaGo.variable + " " + helveticaNeue.variable}
       >
         <Header />
 

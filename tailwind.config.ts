@@ -15,6 +15,10 @@ const config: Config = {
       boxShadow: {
         'custom': '5px 5px 12px 0 rgba(2, 21, 38, 0.08)',
       },
+      fontFamily: {
+        firaGo: ['var(--font-fira-go)'],
+        helveticaNeue: ['var(--font-helveticaNeue)'],
+      }
     },
   },
   plugins: [],

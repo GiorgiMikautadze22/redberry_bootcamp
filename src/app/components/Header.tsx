@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const Header = () => {
     return (
-        <div className="w-full h-[100px] flex items-center justify-start px-[162px] border-b">
+        <div className="w-full h-[100px] flex items-center justify-start px-[162px] border-b mb-[60px]">
             <Image src={Logo} alt="Logo" />
         </div>)
 }

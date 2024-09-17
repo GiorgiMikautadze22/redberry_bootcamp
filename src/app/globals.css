@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:300');
+
+
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: 'FiraGO', sans-serif;
 }

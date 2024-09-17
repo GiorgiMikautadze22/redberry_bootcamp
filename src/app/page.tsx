@@ -1,12 +1,15 @@
-import Image from "next/image";
+import AddingApplicationsButtons from "./components/AddingApplicationsButtons";
 import Filter from "./components/Filter/Filter";
 import Listings from "./components/listings/Listings";
 
 
 export default function Home() {
   return (
-    <div className="px-[162px] pt-[77px]">
-      <Filter />
+    <div className="px-[162px]">
+      <div className="flex items-center w-full justify-between">
+        <Filter />
+        <AddingApplicationsButtons />
+      </div>
       <Listings />
     </div>
   );
