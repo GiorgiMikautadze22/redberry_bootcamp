@@ -1,7 +1,19 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckIcon from "../../assets/check.svg"
 import Image from 'next/image';
+import { fetchCities, fetchRegions } from '@/app/hooks/fetch';
+
+interface Regions {
+    id: number;
+    name: string;
+}
+
+interface Cities {
+    id: number;
+    name: string;
+    region_id: number;
+}
 
 const Location = () => {
 
@@ -12,6 +24,31 @@ const Location = () => {
         city: ''
     });
 
+    const [regions, setRegions] = useState<Regions[]>([]);
+    const [cities, setCities] = useState<Cities[]>([]);
+    const [filteredCities, setFilteredCities] = useState<Cities[]>([]);
+
+    useEffect(() => {
+
+        const selectedRegion = regions.find((region) => region.name === formData.region);
+
+        setFilteredCities(cities.filter((city) => city.region_id === selectedRegion?.id));
+    }, [formData.region]);
+
+    useEffect(() => {
+        const fetchDataFromApi = async () => {
+            try {
+                const regionData = (await fetchRegions()) as Regions[];
+                const cityData = await fetchCities() as Cities[];
+                setCities(cityData);
+                setRegions(regionData);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchDataFromApi();
+    }, []);
 
 
     const [errors, setErrors] = useState<{
@@ -19,12 +56,8 @@ const Location = () => {
         zipCode?: string;
     }>({});
 
-    const [cities, setCities] = useState<string[]>([]);
-    const regions: { [key: string]: string[] } = {
-        'Region 1': ['City 1-1', 'City 1-2', 'City 1-3'],
-        'Region 2': ['City 2-1', 'City 2-2'],
-        'Region 3': ['City 3-1', 'City 3-2', 'City 3-3', 'City 3-4'],
-    };
+
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -32,11 +65,6 @@ const Location = () => {
             ...formData,
             [name]: value,
         });
-
-        if (name === 'region') {
-            setCities(regions[value] || []);
-            setFormData({ ...formData, region: value, city: '' });
-        }
     };
 
     const validateForm = () => {
@@ -64,7 +92,6 @@ const Location = () => {
         // Validate the form
         if (validateForm()) {
             console.log(formData);
-            // Proceed with form submission (e.g., API call)
         } else {
             console.log('Validation errors', errors);
         }
@@ -133,9 +160,9 @@ const Location = () => {
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
                     >
                         <option value="">აირჩიეთ რეგიონი</option>
-                        {Object.keys(regions).map((region) => (
-                            <option key={region} value={region}>
-                                {region}
+                        {Array.isArray(regions) && regions.map((region, index) => (
+                            <option key={index} value={region.name}>
+                                {region.name}
                             </option>
                         ))}
                     </select>
@@ -154,9 +181,9 @@ const Location = () => {
                         disabled={!formData.region}
                     >
                         <option value="">აირჩიეთ ქალაქი</option>
-                        {cities.map((city) => (
-                            <option key={city} value={city}>
-                                {city}
+                        {filteredCities.map((city) => (
+                            <option key={city.id} value={city.name}>
+                                {city.name}
                             </option>
                         ))}
                     </select>

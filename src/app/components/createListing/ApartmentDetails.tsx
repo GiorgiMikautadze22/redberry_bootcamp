@@ -193,6 +193,7 @@ const ApartmentDetails = () => {
                     type="file"
                     id="photo"
                     name="photo"
+                    required
                     ref={fileInputRef} // Bind the ref to the file input
                     onChange={handlePhotoChange}
                     className="mt-1 w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md hidden" // Keep it hidden
@@ -243,13 +244,13 @@ const ApartmentDetails = () => {
             </div>
 
             {/* Submit Button */}
-            <button
+            {/* <button
                 type="submit"
                 onClick={validateForm}
                 className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
             >
                 Submit
-            </button>
+            </button> */}
         </div>
     )
 }
