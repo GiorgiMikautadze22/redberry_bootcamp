@@ -131,7 +131,7 @@ const Location = () => {
                     <label htmlFor="zipCode" className="block text-[14px] font-bold text-gray-700">ZIP კოდი*</label>
                     <input
                         required
-                        type="text"
+                        type="number"
                         id="zipCode"
                         name="zipCode"
                         value={formData.zipCode}

@@ -15,7 +15,7 @@ const TransactionType = () => {
                     <input
                         type="radio"
                         name="transactionType"
-                        value="sale"
+                        value={0}
                         checked={selectedOption === 'sale'}
                         onChange={() => setSelectedOption('sale')}
                         className="hidden"
@@ -38,7 +38,7 @@ const TransactionType = () => {
                     <input
                         type="radio"
                         name="transactionType"
-                        value="rent"
+                        value={1}
                         checked={selectedOption === 'rent'}
                         onChange={() => setSelectedOption('rent')}
                         className="hidden"

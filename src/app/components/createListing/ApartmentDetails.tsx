@@ -107,7 +107,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="price" className="block text-[14px] font-bold text-gray-700">ფასი</label>
                     <input
-                        type="text"
+                        type="number"
                         id="price"
                         name="price"
                         required
@@ -127,7 +127,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="area" className="block text-[14px] font-bold text-gray-700">ფართობი</label>
                     <input
-                        type="text"
+                        type="number"
                         id="area"
                         name="area"
                         required
@@ -147,7 +147,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="bedrooms" className="block text-[14px] font-bold text-gray-700">საძინებლები</label>
                     <input
-                        type="text"
+                        type="number"
                         id="bedrooms"
                         name="bedrooms"
                         required
