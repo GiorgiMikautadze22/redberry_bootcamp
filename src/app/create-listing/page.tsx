@@ -5,11 +5,11 @@ import Location from "../components/createListing/Location";
 import ChoosingAgent from "../components/createListing/ChoosingAgent";
 import TransactionType from "../components/createListing/TransactionType";
 import SubmitButton from "../components/createListing/SubmitButton";
-import { FormData } from '@/app/interfaces/interface';
+// import { FormData } from '@/app/interfaces/interface';
 
 const Page = () => {
     // State to store form data
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<any>({
         price: 0,
         zip_code: "",
         description: '',
@@ -86,8 +86,23 @@ const Page = () => {
         try {
             const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';
 
+            const newFormData = new FormData();
+            newFormData.append('address', formData.address);
+            newFormData.append('agent_id', formData.agent_id.toString());
+            newFormData.append('area', formData.area.toString());
+            newFormData.append('bedrooms', formData.bedrooms.toString());
+            newFormData.append('city_id', formData.city_id.toString());
+            newFormData.append('description', formData.description);
+            newFormData.append('is_rental', formData.is_rental.toString());
+            newFormData.append('price', formData.price.toString());
+            newFormData.append('region_id', formData.region_id.toString());
+            newFormData.append('zip_code', formData.zip_code);
+            if (formData.image instanceof File) {
+                newFormData.append('image', formData.image);
+            }
 
-            console.log("Form data before sending:", formData);
+            console.log("Form data before sending:", Object.fromEntries(newFormData));
+
 
             const response = await fetch("https://api.real-estate-manager.redberryinternship.ge/api/real-estates", {
                 method: 'POST',
@@ -95,7 +110,7 @@ const Page = () => {
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(formData)
+                body: newFormData,
             });
 
 

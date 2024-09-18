@@ -140,7 +140,7 @@ const Location = ({ formData, setFormData, errors }: Props) => {
                     <label htmlFor="zip_code" className="block text-[14px] font-bold text-gray-700">ZIP კოდი*</label>
                     <input
                         required
-                        type="number"
+                        type="text"
                         id="zip_code"
                         name="zip_code"
                         value={formData.zip_code}
