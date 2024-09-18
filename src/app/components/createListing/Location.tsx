@@ -3,26 +3,15 @@ import React, { useEffect, useState } from 'react'
 import CheckIcon from "../../assets/check.svg"
 import Image from 'next/image';
 import { fetchCities, fetchRegions } from '@/app/hooks/fetch';
+import { Regions, Cities, FormData } from '@/app/interfaces/interface';
 
-interface Regions {
-    id: number;
-    name: string;
+interface Props {
+    formData: FormData;
+    setFormData: React.Dispatch<React.SetStateAction<FormData>>;
 }
 
-interface Cities {
-    id: number;
-    name: string;
-    region_id: number;
-}
+const Location = ({ formData, setFormData }: Props) => {
 
-const Location = () => {
-
-    const [formData, setFormData] = useState({
-        address: '',
-        zipCode: '',
-        region: '',
-        city: ''
-    });
 
     const [regions, setRegions] = useState<Regions[]>([]);
     const [cities, setCities] = useState<Cities[]>([]);
@@ -86,16 +75,7 @@ const Location = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
 
-        // Validate the form
-        if (validateForm()) {
-            console.log(formData);
-        } else {
-            console.log('Validation errors', errors);
-        }
-    };
 
     return (
         <div>

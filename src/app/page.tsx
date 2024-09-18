@@ -1,5 +1,6 @@
 import AddingApplicationsButtons from "./components/AddingApplicationsButtons";
 import Filter from "./components/Filter/Filter";
+import AddAgent from "./components/addAgent/AddAgent";
 import Listings from "./components/listings/Listings";
 
 

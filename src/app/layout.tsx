@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localfont from '@next/font/local';
 import Header from "./components/Header";
+import { GlobalContextProvider } from "./context/globalContext";
+import AddAgent from "./components/addAgent/AddAgent";
 
 // Load FiraGo font with specific weights and styles
 // const firaGo = Fira_Sans({
@@ -44,13 +46,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={firaGo.variable + " " + helveticaNeue.variable}
-      >
-        <Header />
+      <GlobalContextProvider >
 
-        {children}
-      </body>
+        <body
+          className={firaGo.variable + " " + helveticaNeue.variable}
+        >
+          <AddAgent />
+          <Header />
+
+          {children}
+        </body>
+      </GlobalContextProvider>
     </html>
   );
 }

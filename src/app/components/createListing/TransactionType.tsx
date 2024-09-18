@@ -2,9 +2,32 @@
 
 import React, { useState } from 'react'
 
-const TransactionType = () => {
+interface FormData {
+    is_rental: number;
+    address: string;
+    zip_code: string;
+    region_id: number;
+    city_id: number;
+    apartmentDetails: string;
+    agent: string;
+}
 
-    const [selectedOption, setSelectedOption] = useState('sale');
+interface Props {
+    formData: FormData;
+    setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+}
+
+const TransactionType = ({ formData, setFormData }: Props) => {
+    const [selectedOption, setSelectedOption] = useState('sale'); // default selection
+
+    const handleOptionChange = (option: 'sale' | 'rent', value: number) => {
+        setSelectedOption(option);
+        console.log("is_rental ", value)
+        setFormData({
+            ...formData,
+            is_rental: value,  // setting the correct value based on selection
+        });
+    };
 
     return (
         <div>
@@ -17,7 +40,7 @@ const TransactionType = () => {
                         name="transactionType"
                         value={0}
                         checked={selectedOption === 'sale'}
-                        onChange={() => setSelectedOption('sale')}
+                        onChange={() => handleOptionChange('sale', 0)}  // sale = 0
                         className="hidden"
                         id="sale"
                     />
@@ -40,7 +63,7 @@ const TransactionType = () => {
                         name="transactionType"
                         value={1}
                         checked={selectedOption === 'rent'}
-                        onChange={() => setSelectedOption('rent')}
+                        onChange={() => handleOptionChange('rent', 1)}  // rent = 1
                         className="hidden"
                         id="rent"
                     />
@@ -56,7 +79,8 @@ const TransactionType = () => {
                     <p className='text-[#021526]'>ქირავდება</p>
                 </div>
             </div>
-        </div>)
-}
+        </div>
+    );
+};
 
-export default TransactionType
+export default TransactionType;
