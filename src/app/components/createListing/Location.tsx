@@ -8,9 +8,22 @@ import { Regions, Cities, FormData } from '@/app/interfaces/interface';
 interface Props {
     formData: FormData;
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+    errors: {
+        price?: number,
+        zip_code?: string,
+        description?: string,
+        area?: number,
+        city_id?: number,
+        region_id?: number,
+        address?: string,
+        agent_id?: number,
+        bedrooms?: number,
+        is_rental?: number,
+        image?: string,
+    };
 }
 
-const Location = ({ formData, setFormData }: Props) => {
+const Location = ({ formData, setFormData, errors }: Props) => {
 
 
     const [regions, setRegions] = useState<Regions[]>([]);
@@ -18,11 +31,27 @@ const Location = ({ formData, setFormData }: Props) => {
     const [filteredCities, setFilteredCities] = useState<Cities[]>([]);
 
     useEffect(() => {
+        if (formData.region_id) {
+            const selectedRegion = regions.find((region) => region.id === Number(formData.region_id));
 
-        const selectedRegion = regions.find((region) => region.name === formData.region);
+            if (selectedRegion) {
+                const filtered = cities.filter((city) => city.region_id === selectedRegion.id);
+                setFilteredCities(filtered);
+            } else {
+                setFilteredCities([]);
+            }
+        } else {
+            setFilteredCities([]);
+        }
+    }, [formData.region_id, regions, cities]);
 
-        setFilteredCities(cities.filter((city) => city.region_id === selectedRegion?.id));
-    }, [formData.region]);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: name === 'region_id' || name === 'city_id' ? Number(value) : value,
+        }));
+    };
 
     useEffect(() => {
         const fetchDataFromApi = async () => {
@@ -40,40 +69,40 @@ const Location = ({ formData, setFormData }: Props) => {
     }, []);
 
 
-    const [errors, setErrors] = useState<{
-        address?: string;
-        zipCode?: string;
-    }>({});
+    // const [errors, setErrors] = useState<{
+    //     address?: string;
+    //     zipCode?: string;
+    // }>({});
 
 
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    //     const { name, value } = e.target;
+    //     setFormData({
+    //         ...formData,
+    //         [name]: value,
+    //     });
+    // };
 
-    const validateForm = () => {
-        const newErrors: { address?: string; zipCode?: string } = {};
+    // const validateForm = () => {
+    //     const newErrors: { address?: string; zipCode?: string } = {};
 
-        // Address validation (min 2 characters)
-        if (formData.address.length < 2) {
-            newErrors.address = 'Address must be at least 2 characters long.';
-        }
+    //     // Address validation (min 2 characters)
+    //     if (formData.address.length < 2) {
+    //         newErrors.address = 'Address must be at least 2 characters long.';
+    //     }
 
-        // ZIP code validation (only numbers)
-        if (!/^\d+$/.test(formData.zipCode)) {
-            newErrors.zipCode = 'ZIP code must contain only numbers.';
-        }
+    //     // ZIP code validation (only numbers)
+    //     if (!/^\d+$/.test(formData.zipCode)) {
+    //         newErrors.zipCode = 'ZIP code must contain only numbers.';
+    //     }
 
-        setErrors(newErrors);
+    //     setErrors(newErrors);
 
-        // Return true if there are no validation errors
-        return Object.keys(newErrors).length === 0;
-    };
+    //     // Return true if there are no validation errors
+    //     return Object.keys(newErrors).length === 0;
+    // };
 
 
 
@@ -108,18 +137,18 @@ const Location = ({ formData, setFormData }: Props) => {
 
                 {/* Zip Code Input */}
                 <div>
-                    <label htmlFor="zipCode" className="block text-[14px] font-bold text-gray-700">ZIP კოდი*</label>
+                    <label htmlFor="zip_code" className="block text-[14px] font-bold text-gray-700">ZIP კოდი*</label>
                     <input
                         required
                         type="number"
-                        id="zipCode"
-                        name="zipCode"
-                        value={formData.zipCode}
+                        id="zip_code"
+                        name="zip_code"
+                        value={formData.zip_code}
                         onChange={handleChange}
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
                     />
-                    {errors.zipCode ?
-                        <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
+                    {errors.zip_code ?
+                        <p className="text-red-500 text-sm mt-1">{errors.zip_code}</p>
                         :
                         <div className='flex gap-2 text-[14px]'>
                             <Image src={CheckIcon} alt="check" />
@@ -130,18 +159,18 @@ const Location = ({ formData, setFormData }: Props) => {
 
                 {/* Region Select Input */}
                 <div>
-                    <label htmlFor="region" className="block text-[14px] font-bold text-gray-700">რეგიონი*</label>
+                    <label htmlFor="region_id" className="block text-[14px] font-bold text-gray-700">რეგიონი*</label>
                     <select
                         required
-                        id="region"
-                        name="region"
-                        value={formData.region}
+                        id="region_id"
+                        name="region_id"
+                        value={formData.region_id || ''}
                         onChange={handleChange}
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
                     >
                         <option value="">აირჩიეთ რეგიონი</option>
-                        {Array.isArray(regions) && regions.map((region, index) => (
-                            <option key={index} value={region.name}>
+                        {regions.map((region) => (
+                            <option key={region.id} value={region.id}>
                                 {region.name}
                             </option>
                         ))}
@@ -150,19 +179,19 @@ const Location = ({ formData, setFormData }: Props) => {
 
                 {/* City Select Input */}
                 <div>
-                    <label htmlFor="city" className="block text-[14px] font-bold text-gray-700">ქალაქი*</label>
+                    <label htmlFor="city_id" className="block text-[14px] font-bold text-gray-700">ქალაქი*</label>
                     <select
                         required
-                        id="city"
-                        name="city"
-                        value={formData.city}
+                        id="city_id"
+                        name="city_id"
+                        value={formData.city_id || ''}
                         onChange={handleChange}
                         className="mt-1 block w-full px-3 h-[42px] py-2 border border-[#808A93] rounded-md"
-                        disabled={!formData.region}
+                        disabled={!formData.region_id}
                     >
                         <option value="">აირჩიეთ ქალაქი</option>
                         {filteredCities.map((city) => (
-                            <option key={city.id} value={city.name}>
+                            <option key={city.id} value={city.id}>
                                 {city.name}
                             </option>
                         ))}

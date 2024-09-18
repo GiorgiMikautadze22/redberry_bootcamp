@@ -1,16 +1,9 @@
 "use client"
 
 import React, { useState } from 'react'
+import { FormData } from '@/app/interfaces/interface';
 
-interface FormData {
-    is_rental: number;
-    address: string;
-    zip_code: string;
-    region_id: number;
-    city_id: number;
-    apartmentDetails: string;
-    agent: string;
-}
+
 
 interface Props {
     formData: FormData;
@@ -22,10 +15,9 @@ const TransactionType = ({ formData, setFormData }: Props) => {
 
     const handleOptionChange = (option: 'sale' | 'rent', value: number) => {
         setSelectedOption(option);
-        console.log("is_rental ", value)
         setFormData({
             ...formData,
-            is_rental: value,  // setting the correct value based on selection
+            is_rental: value,
         });
     };
 

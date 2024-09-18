@@ -3,76 +3,63 @@ import Image from 'next/image';
 import React, { useRef, useState } from 'react'
 import TrashIcon from "../../assets/trash-2.svg"
 import CheckIcon from "../../assets/check.svg"
+import { FormData } from '@/app/interfaces/interface';
+
+interface Props {
+    formData: FormData;
+    setFormData: React.Dispatch<React.SetStateAction<FormData>>;
+    errors: {
+        price?: number,
+        zip_code?: string,
+        description?: string,
+        area?: number,
+        city_id?: number,
+        region_id?: number,
+        address?: string,
+        agent_id?: number,
+        bedrooms?: number,
+        is_rental?: number,
+        image?: string,
+    };
+}
+
+const ApartmentDetails = ({ formData, setFormData, errors }: Props) => {
 
 
-const ApartmentDetails = () => {
 
-    const [formData, setFormData] = useState({
-        price: '',
-        area: '',
-        bedrooms: '',
-        description: '',
-        photo: null as File | null, // Photo will be a file object
-    });
 
     const [photoPreview, setPhotoPreview] = useState<string | null>(null); // To hold the photo preview URL
 
     const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref to access the file input
 
 
-    const [errors, setErrors] = useState<{
-        price?: string;
-        area?: string;
-        bedrooms?: string;
-        description?: string;
-        photo?: string;
-    }>({});
 
-    const validateForm = () => {
-        const newErrors: { price?: string; area?: string; bedrooms?: string; description?: string; photo?: string } = {};
 
-        if (!/^\d+$/.test(formData.price)) {
-            newErrors.price = 'Price must contain only numbers.';
-        }
-        if (!/^\d+$/.test(formData.area)) {
-            newErrors.area = 'Area must contain only numbers.';
-        }
-        if (!/^\d+$/.test(formData.bedrooms)) {
-            newErrors.bedrooms = 'Bedrooms must contain only numbers.';
-        }
-        const wordCount = formData.description.trim().split(/\s+/).length; // Trims extra spaces and splits by whitespace
-        if (wordCount < 5) {
-            newErrors.description = 'Description must be at least 5 words long.';
-        }
-
-        // Validate photo
-        if (!formData.photo) {
-            newErrors.photo = 'Please upload an image.';
-        } else if (!formData.photo.type.startsWith('image/')) {
-            newErrors.photo = 'File must be an image.';
-        } else if (formData.photo.size > 1024 * 1024) {
-            newErrors.photo = 'Image size must be less than 1MB.';
-        }
-
-        setErrors(newErrors);
-
-        // Return true if there are no validation errors
-        return Object.keys(newErrors).length === 0;
-    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        if (name === 'price' || name === 'area' || name === 'bedrooms') {
+            // Convert to number and validate
+            const numValue = Number(value);
+            if (!isNaN(numValue) && numValue >= 0) {
+                setFormData({
+                    ...formData,
+                    [name]: numValue,
+                });
+            }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        };
     };
 
     const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files ? e.target.files[0] : null;
         setFormData({
             ...formData,
-            photo: file,
+            image: file,
         });
 
         if (file) {
@@ -96,7 +83,7 @@ const ApartmentDetails = () => {
     const handleRemovePhoto = () => {
         setFormData({
             ...formData,
-            photo: null,
+            image: null,
         });
         setPhotoPreview(null); // Clear the preview
     };
@@ -107,7 +94,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="price" className="block text-[14px] font-bold text-gray-700">ფასი</label>
                     <input
-                        type="number"
+                        type="text"
                         id="price"
                         name="price"
                         required
@@ -127,7 +114,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="area" className="block text-[14px] font-bold text-gray-700">ფართობი</label>
                     <input
-                        type="number"
+                        type="text"
                         id="area"
                         name="area"
                         required
@@ -147,7 +134,7 @@ const ApartmentDetails = () => {
                 <div>
                     <label htmlFor="bedrooms" className="block text-[14px] font-bold text-gray-700">საძინებლები</label>
                     <input
-                        type="number"
+                        type="text"
                         id="bedrooms"
                         name="bedrooms"
                         required
@@ -232,8 +219,8 @@ const ApartmentDetails = () => {
                     }
 
                 </div>
-                {errors.photo ?
-                    <p className="text-red-500 text-sm mt-1">{errors.photo}</p>
+                {errors.image ?
+                    <p className="text-red-500 text-sm mt-1">{errors.image}</p>
                     :
                     <div className='flex gap-2 text-[14px]'>
                         <Image src={CheckIcon} alt="check" />

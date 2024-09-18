@@ -13,7 +13,6 @@ const SubmitButton = () => {
             <button className='bg-[#F93B1D] font-semibold text-white h-[47px] border-[#F93B1D] rounded-[10px] flex items-center justify-center gap-2 px-[15px]'
                 type='submit'
             >
-
                 <p>დაამატე ლისტინგი</p>
             </button>
 

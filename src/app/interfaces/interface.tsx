@@ -9,7 +9,7 @@ export interface FormData {
     agent_id: number,
     bedrooms: number,
     is_rental: number,
-    image: string,
+    image: string | File | null,
 }
 
 export interface Regions {
