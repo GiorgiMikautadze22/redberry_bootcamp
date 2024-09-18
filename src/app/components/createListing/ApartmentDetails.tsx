@@ -233,7 +233,7 @@ const ApartmentDetails = () => {
 
                 </div>
                 {errors.photo ?
-                    <p className="text-red-500 text-sm mt-1">{errors.price}</p>
+                    <p className="text-red-500 text-sm mt-1">{errors.photo}</p>
                     :
                     <div className='flex gap-2 text-[14px]'>
                         <Image src={CheckIcon} alt="check" />
