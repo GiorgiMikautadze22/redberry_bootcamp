@@ -176,7 +176,6 @@ const Listings = () => {
         const fetchDataFromApi = async () => {
             try {
                 const data = (await fetchListings()) as any[];
-                console.log("Fetched data:", data);
                 setListings(data);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -187,7 +186,7 @@ const Listings = () => {
     }, []);
 
     return (
-        <div className='flex flex-wrap gap-10 w-full h-max items-center justify-between mt-[50px]'>
+        <div className='grid grid-cols-4 gap-10 w-full h-max items-center justify-between mt-[50px]'>
             {Listings.map((listing) => (
                 <Card key={listing.id} listing={listing} />
             ))}

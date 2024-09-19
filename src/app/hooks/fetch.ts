@@ -68,7 +68,55 @@ export const fetchListings = async () => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to fetch Agents');
+            throw new Error('Failed to fetch Listings');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+export const deleteListing = async (id: string) => {
+    try {
+        const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';
+
+
+        const response = await fetch(requests.fetchListings + "/" + id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch Listing');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+export const fetchListing = async (id: string) => {
+    try {
+        const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';
+
+
+        const response = await fetch(requests.fetchListings + "/" + id, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch Listing');
         }
 
         const data = await response.json();
