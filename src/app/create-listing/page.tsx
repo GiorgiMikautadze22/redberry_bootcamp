@@ -5,6 +5,7 @@ import Location from "../components/createListing/Location";
 import ChoosingAgent from "../components/createListing/ChoosingAgent";
 import TransactionType from "../components/createListing/TransactionType";
 import SubmitButton from "../components/createListing/SubmitButton";
+import { useRouter } from 'next/navigation';
 // import { FormData } from '@/app/interfaces/interface';
 
 const Page = () => {
@@ -36,6 +37,10 @@ const Page = () => {
         is_rental?: number,
         image?: string,
     }>({});
+
+    const router = useRouter();
+
+
 
 
     const validateForm = () => {
@@ -78,6 +83,7 @@ const Page = () => {
 
         const isValid = validateForm();
 
+
         if (!isValid) {
             console.log("Form validation failed");
             return;
@@ -114,8 +120,11 @@ const Page = () => {
             });
 
 
+
+
             if (response.ok) {
                 console.log("Form submitted successfully");
+                router.push('/');
             } else {
                 // Handle error
                 console.error("Error submitting form");
