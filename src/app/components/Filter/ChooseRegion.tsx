@@ -10,7 +10,9 @@ interface RegionState {
 }
 
 const ChooseRegion: React.FC = () => {
-    const [selectedRegions, setSelectedRegions] = useState<RegionState>({
+
+
+    const initialRegionsState: RegionState = {
         ქართლი: false,
         კახეთი: false,
         იმერეთი: false,
@@ -23,38 +25,27 @@ const ChooseRegion: React.FC = () => {
         მცხეთა: false,
         'სამცხე-ჯავახეთი': false,
         თბილისი: false
-    })
+    };
+
+    const [selectedRegions, setSelectedRegions] = useState<RegionState>(initialRegionsState)
 
 
     const context = useContext(globalContext);
 
-    // useEffect(() => {
-    //     if (context?.Listings) {
-    //         const selectedRegionNames = Object.entries(selectedRegions)
-    //             .filter(([_, isSelected]) => isSelected)
-    //             .map(([region, _]) => region);
 
-    //         const filteredListings = selectedRegionNames.length > 0
-    //             ? context.Listings.filter((item) => selectedRegionNames.includes(item.city.region.name))
-    //             : context.Listings;
+    const handleApplyFilter = () => {
+        // Set selected regions in the global context
+        const selectedRegionNames = Object.entries(selectedRegions)
+            .filter(([_, isSelected]) => isSelected)
+            .map(([region, _]) => region);
 
-    //         console.log("filtered", filteredListings)
+        context?.setSelectedRegion(selectedRegionNames);
+        // Close the dropdown
 
-    //         context.setFilteredListings(filteredListings);
-    //     }
-    // }, [selectedRegions, context?.Listings])
+        setSelectedRegions(initialRegionsState);
 
-
-    useEffect(() => {
-        if (context?.Listings) {
-            const selectedRegionNames = Object.entries(selectedRegions)
-                .filter(([_, isSelected]) => isSelected)
-                .map(([region, _]) => region);
-            console.log("selectedRegionNames", selectedRegionNames)
-            context.setSelectedRegion(selectedRegionNames);
-        }
-
-    }, [selectedRegions])
+        context?.setIsOpen('');
+    };
 
 
     const toggleDropdown = () => {
@@ -70,10 +61,6 @@ const ChooseRegion: React.FC = () => {
             ...prev,
             [region]: !prev[region]
         }))
-    }
-
-    const handleApplyFilter = () => {
-        context?.setIsOpen('');
     }
 
     return (

@@ -1,35 +1,14 @@
 "use client"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import DropDownIcon from '../../assets/Icon.svg'
 import { globalContext } from '@/app/context/globalContext'
 
 const FilterPrice: React.FC = () => {
-    // const [minPrice, setMinPrice] = useState('')
-    // const [maxPrice, setMaxPrice] = useState('')
     const [selectedMinPrice, setSelectedMinPrice] = useState('')
     const [selectedMaxPrice, setSelectedMaxPrice] = useState('')
 
     const context = useContext(globalContext);
-
-
-
-
-    // const handlePriceFiltering = () => {
-
-    //     if (context?.Listings) {
-
-
-    //         const filteredByPrice = context?.Listings.filter((item) => item.price > minPrice && item.price < maxPrice)
-    //         console.log("filtered", filteredByPrice)
-    //         context?.setFilteredListings(filteredByPrice)
-    //     }
-
-    // }
-
-
-
-
 
     const toggleDropdown = () => {
         if (context?.isOpen.length === 0 || context?.isOpen !== "price") {
@@ -37,6 +16,18 @@ const FilterPrice: React.FC = () => {
         } else {
             context?.setIsOpen('')
         }
+    }
+
+    const handleApplyFilter = () => {
+        // Set the selected min and max price in the global context
+        context?.setMinPrice(selectedMinPrice);
+        context?.setMaxPrice(selectedMaxPrice);
+
+        setSelectedMaxPrice('')
+        setSelectedMaxPrice('');
+
+        // Close the dropdown
+        context?.setIsOpen('');
     }
 
     const priceOptions = ['50,000', '100,000', '150,000', '200,000', '300,000']
@@ -63,8 +54,8 @@ const FilterPrice: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="დან"
-                                value={context?.minPrice}
-                                onChange={(e) => context.setMinPrice(e.target.value)}
+                                value={selectedMinPrice}
+                                onChange={(e) => setSelectedMinPrice(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
@@ -72,8 +63,8 @@ const FilterPrice: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="მდე"
-                                value={context?.maxPrice}
-                                onChange={(e) => context.setMaxPrice(e.target.value)}
+                                value={selectedMaxPrice}
+                                onChange={(e) => setSelectedMaxPrice(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
@@ -113,7 +104,10 @@ const FilterPrice: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors">
+                        <button
+                            className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors"
+                            onClick={handleApplyFilter}
+                        >
                             არჩევა
                         </button>
                     </div>

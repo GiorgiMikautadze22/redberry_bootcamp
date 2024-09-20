@@ -7,9 +7,18 @@ import { globalContext } from '../../context/globalContext'
 
 const FilterBedrooms: React.FC = () => {
     // const [isOpen, setIsOpen] = useState(false)
-    // const [bedroomCount, setBedroomCount] = useState('')
+    const [bedroomCount, setBedroomCount] = useState('')
 
     const context = useContext(globalContext);
+
+    const handleApplyFilter = () => {
+        // Set the selected min and max price in the global context
+        context?.setSelectedBedrooms(bedroomCount);
+        setBedroomCount('')
+
+        // Close the dropdown
+        context?.setIsOpen('');
+    }
 
 
     const toggleDropdown = () => {
@@ -40,14 +49,14 @@ const FilterBedrooms: React.FC = () => {
                     <div className="mb-4">
                         <input
                             type="number"
-                            value={context?.selectedBedrooms}
-                            onChange={(e) => context.setSelectedBedrooms(e.target.value)}
+                            value={bedroomCount}
+                            onChange={(e) => setBedroomCount(e.target.value)}
                             className="w-[80px] p-2 border border-gray-300 rounded-md text-center text-lg"
                             min="1"
                         />
                     </div>
                     <div className="flex justify-end">
-                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors">
+                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors" onClick={handleApplyFilter}>
                             არჩევა
                         </button>
                     </div>

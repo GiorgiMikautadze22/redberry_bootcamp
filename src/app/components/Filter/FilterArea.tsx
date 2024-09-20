@@ -5,12 +5,26 @@ import DropDownIcon from '../../assets/Icon.svg'
 import { globalContext } from '@/app/context/globalContext'
 
 const FilterArea: React.FC = () => {
-    // const [minArea, setMinArea] = useState('')
-    // const [maxArea, setMaxArea] = useState('')
+    const [minArea, setMinArea] = useState('')
+    const [maxArea, setMaxArea] = useState('')
     const [selectedMinArea, setSelectedMinArea] = useState('')
     const [selectedMaxArea, setSelectedMaxArea] = useState('')
 
+
+
     const context = useContext(globalContext);
+
+    const handleApplyFilter = () => {
+        // Set the selected min and max price in the global context
+        context?.setMinArea(minArea);
+        context?.setMaxArea(maxArea);
+
+        setSelectedMinArea('')
+        setSelectedMaxArea('')
+
+        // Close the dropdown
+        context?.setIsOpen('');
+    }
 
 
     const toggleDropdown = () => {
@@ -45,8 +59,8 @@ const FilterArea: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="დან"
-                                value={context.minArea}
-                                onChange={(e) => context.setMinArea(e.target.value)}
+                                value={minArea}
+                                onChange={(e) => setMinArea(e.target.value)}
                                 className="w-full p-2 pr-8 border border-gray-300 rounded-md"
                             />
                             <span className="absolute right-2 top-2 text-gray-500">მ²</span>
@@ -55,8 +69,8 @@ const FilterArea: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="მდე"
-                                value={context.maxArea}
-                                onChange={(e) => context.setMaxArea(e.target.value)}
+                                value={maxArea}
+                                onChange={(e) => setMaxArea(e.target.value)}
                                 className="w-full p-2 pr-8 border border-gray-300 rounded-md"
                             />
                             <span className="absolute right-2 top-2 text-gray-500">მ²</span>
@@ -97,7 +111,7 @@ const FilterArea: React.FC = () => {
                         </div>
                     </div>
                     <div className="flex justify-end">
-                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors">
+                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors" onClick={handleApplyFilter}>
                             არჩევა
                         </button>
                     </div>

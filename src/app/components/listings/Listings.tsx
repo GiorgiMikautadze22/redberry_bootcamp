@@ -29,9 +29,15 @@ const Listings = () => {
 
     return (
         <div className='grid grid-cols-4 gap-10 w-full h-max items-center justify-between mt-[50px]'>
-            {context?.filteredListings.map((listing) => (
-                <Card key={listing.id} listing={listing} />
-            ))}
+            {context?.Listings.length !== 0 && context?.filteredListings.length === 0 ? (
+                <div className='col-span-4'>
+                    <p className='text-[20px] font-bold'>აღნიშნული მონაცემებით განცხადება არ იძებნება</p>
+                </div>
+            ) : (
+                context?.filteredListings.map((listing) => (
+                    <Card key={listing.id} listing={listing} />
+                ))
+            )}
         </div>
     )
 }
