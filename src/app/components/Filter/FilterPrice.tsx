@@ -1,17 +1,42 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import DropDownIcon from '../../assets/Icon.svg'
+import { globalContext } from '@/app/context/globalContext'
 
 const FilterPrice: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [minPrice, setMinPrice] = useState('')
-    const [maxPrice, setMaxPrice] = useState('')
+    // const [minPrice, setMinPrice] = useState('')
+    // const [maxPrice, setMaxPrice] = useState('')
     const [selectedMinPrice, setSelectedMinPrice] = useState('')
     const [selectedMaxPrice, setSelectedMaxPrice] = useState('')
 
+    const context = useContext(globalContext);
+
+
+
+
+    // const handlePriceFiltering = () => {
+
+    //     if (context?.Listings) {
+
+
+    //         const filteredByPrice = context?.Listings.filter((item) => item.price > minPrice && item.price < maxPrice)
+    //         console.log("filtered", filteredByPrice)
+    //         context?.setFilteredListings(filteredByPrice)
+    //     }
+
+    // }
+
+
+
+
+
     const toggleDropdown = () => {
-        setIsOpen(!isOpen)
+        if (context?.isOpen.length === 0 || context?.isOpen !== "price") {
+            context?.setIsOpen('price')
+        } else {
+            context?.setIsOpen('')
+        }
     }
 
     const priceOptions = ['50,000', '100,000', '150,000', '200,000', '300,000']
@@ -26,11 +51,11 @@ const FilterPrice: React.FC = () => {
                 <Image
                     src={DropDownIcon}
                     alt="dropdown-icon"
-                    className={`${isOpen ? '' : 'rotate-180'} ml-2 transition-transform`}
+                    className={`${context?.isOpen === "price" ? '' : 'rotate-180'} ml-2 transition-transform`}
                 />
             </button>
 
-            {isOpen && (
+            {context?.isOpen === "price" && (
                 <div className="w-[400px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md">
                     <h3 className="mb-4 font-semibold text-lg">ფასის მიხედვით</h3>
                     <div className="flex justify-between mb-4">
@@ -38,8 +63,8 @@ const FilterPrice: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="დან"
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
+                                value={context?.minPrice}
+                                onChange={(e) => context.setMinPrice(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>
@@ -47,8 +72,8 @@ const FilterPrice: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="მდე"
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
+                                value={context?.maxPrice}
+                                onChange={(e) => context.setMaxPrice(e.target.value)}
                                 className="w-full p-2 border border-gray-300 rounded-md"
                             />
                         </div>

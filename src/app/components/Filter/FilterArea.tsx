@@ -1,17 +1,24 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import DropDownIcon from '../../assets/Icon.svg'
+import { globalContext } from '@/app/context/globalContext'
 
 const FilterArea: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [minArea, setMinArea] = useState('')
-    const [maxArea, setMaxArea] = useState('')
+    // const [minArea, setMinArea] = useState('')
+    // const [maxArea, setMaxArea] = useState('')
     const [selectedMinArea, setSelectedMinArea] = useState('')
     const [selectedMaxArea, setSelectedMaxArea] = useState('')
 
+    const context = useContext(globalContext);
+
+
     const toggleDropdown = () => {
-        setIsOpen(!isOpen)
+        if (context?.isOpen.length === 0 || context?.isOpen !== "area") {
+            context?.setIsOpen('area')
+        } else {
+            context?.setIsOpen('')
+        }
     }
 
     const areaOptions = ['50,000', '50,000', '50,000', '50,000', '50,000']
@@ -26,11 +33,11 @@ const FilterArea: React.FC = () => {
                 <Image
                     src={DropDownIcon}
                     alt="dropdown-icon"
-                    className={`${isOpen ? '' : 'rotate-180'} ml-2 transition-transform`}
+                    className={`${context?.isOpen === "area" ? '' : 'rotate-180'} ml-2 transition-transform`}
                 />
             </button>
 
-            {isOpen && (
+            {context?.isOpen === "area" && (
                 <div className="w-[400px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md">
                     <h3 className="mb-4 font-semibold text-lg">ფართობის მიხედვით</h3>
                     <div className="flex justify-between mb-4">
@@ -38,8 +45,8 @@ const FilterArea: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="დან"
-                                value={minArea}
-                                onChange={(e) => setMinArea(e.target.value)}
+                                value={context.minArea}
+                                onChange={(e) => context.setMinArea(e.target.value)}
                                 className="w-full p-2 pr-8 border border-gray-300 rounded-md"
                             />
                             <span className="absolute right-2 top-2 text-gray-500">მ²</span>
@@ -48,8 +55,8 @@ const FilterArea: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="მდე"
-                                value={maxArea}
-                                onChange={(e) => setMaxArea(e.target.value)}
+                                value={context.maxArea}
+                                onChange={(e) => context.setMaxArea(e.target.value)}
                                 className="w-full p-2 pr-8 border border-gray-300 rounded-md"
                             />
                             <span className="absolute right-2 top-2 text-gray-500">მ²</span>

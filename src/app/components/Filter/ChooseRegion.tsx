@@ -1,14 +1,15 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import DropDownIcon from '../../assets/Icon.svg'
 import Image from 'next/image';
+import { globalContext } from '@/app/context/globalContext';
+import Listings from '../listings/Listings';
 
 interface RegionState {
     [key: string]: boolean;
 }
 
 const ChooseRegion: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false)
     const [selectedRegions, setSelectedRegions] = useState<RegionState>({
         ქართლი: false,
         კახეთი: false,
@@ -24,8 +25,44 @@ const ChooseRegion: React.FC = () => {
         თბილისი: false
     })
 
+
+    const context = useContext(globalContext);
+
+    // useEffect(() => {
+    //     if (context?.Listings) {
+    //         const selectedRegionNames = Object.entries(selectedRegions)
+    //             .filter(([_, isSelected]) => isSelected)
+    //             .map(([region, _]) => region);
+
+    //         const filteredListings = selectedRegionNames.length > 0
+    //             ? context.Listings.filter((item) => selectedRegionNames.includes(item.city.region.name))
+    //             : context.Listings;
+
+    //         console.log("filtered", filteredListings)
+
+    //         context.setFilteredListings(filteredListings);
+    //     }
+    // }, [selectedRegions, context?.Listings])
+
+
+    useEffect(() => {
+        if (context?.Listings) {
+            const selectedRegionNames = Object.entries(selectedRegions)
+                .filter(([_, isSelected]) => isSelected)
+                .map(([region, _]) => region);
+            console.log("selectedRegionNames", selectedRegionNames)
+            context.setSelectedRegion(selectedRegionNames);
+        }
+
+    }, [selectedRegions])
+
+
     const toggleDropdown = () => {
-        setIsOpen(!isOpen)
+        if (context?.isOpen.length === 0 || context?.isOpen !== "region") {
+            context?.setIsOpen('region')
+        } else {
+            context?.setIsOpen('')
+        }
     }
 
     const handleCheckboxChange = (region: string) => {
@@ -35,14 +72,18 @@ const ChooseRegion: React.FC = () => {
         }))
     }
 
+    const handleApplyFilter = () => {
+        context?.setIsOpen('');
+    }
+
     return (
         <div className='relative'>
             <button className='hover:bg-[#F3F3F3] h-[35px] px-[10px] flex items-center justify-center rounded-[6px] transition-all cursor-pointer' onClick={toggleDropdown}>
                 რეგიონი
-                <Image src={DropDownIcon} alt="dropdown-icon" className={`${isOpen ? '' : 'rotate-180'}  ml-2 transition-transform`} />
+                <Image src={DropDownIcon} alt="dropdown-icon" className={`${context?.isOpen === "region" ? '' : 'rotate-180'}  ml-2 transition-transform`} />
             </button>
 
-            {isOpen && (
+            {context?.isOpen === "region" && (
                 <div className="w-[700px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md">
                     <h3 className="mb-4 font-semibold text-lg">რეგიონის მიხედვით</h3>
                     <div className="grid grid-cols-3 gap-4">
@@ -68,7 +109,7 @@ const ChooseRegion: React.FC = () => {
                         ))}
                     </div>
                     <div className="mt-6 flex justify-end">
-                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors">
+                        <button className="bg-[#FF4F37] text-white px-6 py-2 rounded-md hover:bg-[#E64632] transition-colors" onClick={handleApplyFilter}>
                             არჩევა
                         </button>
                     </div>

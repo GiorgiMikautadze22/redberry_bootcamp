@@ -1,14 +1,23 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import DropDownIcon from '../../assets/Icon.svg'
+import { globalContext } from '../../context/globalContext'
+
 
 const FilterBedrooms: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false)
-    const [bedroomCount, setBedroomCount] = useState('')
+    // const [isOpen, setIsOpen] = useState(false)
+    // const [bedroomCount, setBedroomCount] = useState('')
+
+    const context = useContext(globalContext);
+
 
     const toggleDropdown = () => {
-        setIsOpen(!isOpen)
+        if (context?.isOpen.length === 0 || context?.isOpen !== "bedrooms") {
+            context?.setIsOpen('bedrooms')
+        } else {
+            context?.setIsOpen('')
+        }
     }
 
     return (
@@ -21,18 +30,18 @@ const FilterBedrooms: React.FC = () => {
                 <Image
                     src={DropDownIcon}
                     alt="dropdown-icon"
-                    className={`${isOpen ? '' : 'rotate-180'} ml-2 transition-transform`}
+                    className={`${context?.isOpen === "bedrooms" ? '' : 'rotate-180'} ml-2 transition-transform`}
                 />
             </button>
 
-            {isOpen && (
+            {context?.isOpen === "bedrooms" && (
                 <div className="w-[400px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md">
                     <h3 className="mb-4 font-semibold text-lg">საძინებლების რაოდენობა</h3>
                     <div className="mb-4">
                         <input
                             type="number"
-                            value={bedroomCount}
-                            onChange={(e) => setBedroomCount(e.target.value)}
+                            value={context?.selectedBedrooms}
+                            onChange={(e) => context.setSelectedBedrooms(e.target.value)}
                             className="w-[80px] p-2 border border-gray-300 rounded-md text-center text-lg"
                             min="1"
                         />
