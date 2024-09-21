@@ -327,7 +327,7 @@ const AddAgent = () => {
                                         alt="Photo Preview"
                                         width={200}
                                         height={200}
-                                        className="w-[200px] h-auto object-cover rounded-md border border-[#808A93]"
+                                        className="w-[200px] h-[200px] object-cover rounded-md border border-[#808A93]"
                                     />
                                     <div className='w-[30px] bg-white h-[30px] rounded-full border border-black flex justify-center items-center cursor-pointer absolute right-[-10px] bottom-[-10px]'
                                         onClick={handleRemovePhoto}
@@ -356,7 +356,7 @@ const AddAgent = () => {
                         }
 
                     </div>
-                    <div className="flex items-center justify-end gap-[16px] w-full mt-[50px]">
+                    <div className="flex items-center justify-end gap-[16px] w-full mt-[20px]">
                         <div
                             className="border font-semibold cursor-pointer text-[#F93B1D] h-[47px] border-[#F93B1D] rounded-[10px] flex items-center justify-center gap-2 px-[15px]"
                             onClick={handleConsultButtonClose}
