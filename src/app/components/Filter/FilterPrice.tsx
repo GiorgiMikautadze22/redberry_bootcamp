@@ -36,7 +36,7 @@ const FilterPrice: React.FC = () => {
     const priceOptions = ['50,000', '100,000', '150,000', '200,000', '300,000']
 
     return (
-        <div className='relative'>
+        <div className='relative' >
             <button
                 className='hover:bg-[#F3F3F3] h-[35px] px-[10px] flex items-center justify-center rounded-[6px] transition-all cursor-pointer'
                 onClick={toggleDropdown}

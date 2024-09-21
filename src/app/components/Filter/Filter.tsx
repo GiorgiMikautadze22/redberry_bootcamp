@@ -53,8 +53,10 @@ const Filter = () => {
 
     }
 
+
     return (
-        <div className='flex flex-col font-bold text-[16px]'>
+        <div className='flex flex-col font-bold text-[16px]'
+        >
             <FilterProperties />
             <div className='mt-5 flex gap-5'>
                 {context?.selectedRegion.map((region) => (

@@ -1,4 +1,3 @@
-"use client"
 import React, { useContext, useState } from 'react'
 import DropDownIcon from '../../assets/Icon.svg'
 import Image from 'next/image';
@@ -9,8 +8,6 @@ interface RegionState {
 }
 
 const ChooseRegion: React.FC = () => {
-
-
     const initialRegionsState: RegionState = {
         ქართლი: false,
         კახეთი: false,
@@ -27,8 +24,6 @@ const ChooseRegion: React.FC = () => {
     };
 
     const [selectedRegions, setSelectedRegions] = useState<RegionState>(initialRegionsState);
-
-
     const context = useContext(globalContext);
 
 
@@ -41,12 +36,8 @@ const ChooseRegion: React.FC = () => {
         context?.setSelectedRegion(selectedRegionNames);
 
         setSelectedRegions(initialRegionsState);
-
-
-        // Close the dropdown
         context?.setIsOpen('');
     };
-
 
     const toggleDropdown = () => {
         if (context?.isOpen.length === 0 || context?.isOpen !== "region") {
@@ -63,6 +54,10 @@ const ChooseRegion: React.FC = () => {
         }))
     }
 
+    const handlePopupClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    }
+
     return (
         <div className='relative'>
             <button className='hover:bg-[#F3F3F3] h-[35px] px-[10px] flex items-center justify-center rounded-[6px] transition-all cursor-pointer' onClick={toggleDropdown}>
@@ -71,7 +66,10 @@ const ChooseRegion: React.FC = () => {
             </button>
 
             {context?.isOpen === "region" && (
-                <div className="w-[700px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md">
+                <div
+                    className="w-[700px] p-[24px] border-[1px] border-[#DBDBDB] absolute top-[50px] left-[-5px] rounded-[10px] bg-white z-10 shadow-md"
+                    onClick={handlePopupClick}
+                >
                     <h3 className="mb-4 font-semibold text-lg">რეგიონის მიხედვით</h3>
                     <div className="grid grid-cols-3 gap-4">
                         {Object.entries(selectedRegions).map(([region, isChecked]) => (
