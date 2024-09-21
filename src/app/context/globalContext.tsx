@@ -35,12 +35,21 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     const [Listings, setListings] = useState<any[]>([]);
     const [filteredListings, setFilteredListings] = useState<any[]>([]);
 
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-    const [selectedRegion, setSelectedRegion] = useState<string[]>([]);
-    const [minArea, setMinArea] = useState('');
-    const [maxArea, setMaxArea] = useState('');
-    const [selectedBedrooms, setSelectedBedrooms] = useState('');
+
+
+    const storeRegions = localStorage.getItem('selectedRegionNames');
+    const storeMinPrice = localStorage.getItem('minPrice');
+    const storeMaxPrice = localStorage.getItem('maxPrice');
+    const storeMinArea = localStorage.getItem('minArea');
+    const storeMaxArea = localStorage.getItem('maxArea');
+    const storeBedrooms = localStorage.getItem('selectedBedrooms');
+
+    const [minPrice, setMinPrice] = useState(storeMinPrice ? JSON.parse(storeMinPrice) : '');
+    const [maxPrice, setMaxPrice] = useState(storeMaxPrice ? JSON.parse(storeMaxPrice) : '');
+    const [selectedRegion, setSelectedRegion] = useState<string[]>(storeRegions ? JSON.parse(storeRegions) : []);
+    const [minArea, setMinArea] = useState(storeMinArea ? JSON.parse(storeMinArea) : '');
+    const [maxArea, setMaxArea] = useState(storeMaxArea ? JSON.parse(storeMaxArea) : '');
+    const [selectedBedrooms, setSelectedBedrooms] = useState(storeBedrooms ? JSON.parse(storeBedrooms) : '');
 
     const handleFiltering = () => {
 
@@ -52,28 +61,24 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
         // Filter by region
         if (selectedRegion.length > 0) {
             updatedListings = updatedListings.filter((item) => selectedRegion.includes(item.city.region.name));
-            localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
 
         }
 
         // Filter by price
         if (minPrice && maxPrice) {
             updatedListings = updatedListings.filter((item) => item.price > minPrice && item.price < maxPrice);
-            localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
 
         }
 
         // Filter by area
         if (minArea && maxArea) {
             updatedListings = updatedListings.filter((item) => item.area > minArea && item.area < maxArea);
-            localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
 
         }
 
         // Filter by bedrooms
         if (selectedBedrooms) {
             updatedListings = updatedListings.filter((item) => item.bedrooms === Number(selectedBedrooms));
-            localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
 
         }
 
@@ -81,7 +86,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
         setFilteredListings(updatedListings);
 
         // Store filtered listings in localStorage
-        localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
+        // localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
     };
 
     useEffect(() => {
@@ -89,12 +94,7 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     }, [selectedRegion, minPrice, maxPrice, Listings, minArea, maxArea, selectedBedrooms]);
 
     // Load filtered data from localStorage when the page refreshes
-    useEffect(() => {
-        const storedFilteredListings = localStorage.getItem('filteredListings');
-        if (storedFilteredListings) {
-            setFilteredListings(JSON.parse(storedFilteredListings));
-        }
-    }, []); // Runs only on component mount
+
 
     return (
         <globalContext.Provider value={{

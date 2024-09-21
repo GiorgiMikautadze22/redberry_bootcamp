@@ -11,22 +11,22 @@ import { useRouter } from 'next/navigation';
 const Page = () => {
     // State to store form data
     const [formData, setFormData] = useState<any>({
-        price: 0,
+        price: '',
         zip_code: "",
         description: '',
-        area: 0,
-        city_id: 0,
-        region_id: 0,
+        area: '',
+        city_id: '',
+        region_id: '',
         address: '',
-        agent_id: 0,
-        bedrooms: 0,
+        agent_id: '',
+        bedrooms: '',
         is_rental: 0,
         image: '',
     });
 
     const [errors, setErrors] = useState<{
         price?: number,
-        zip_code?: string,
+        zip_code?: number,
         description?: string,
         area?: number,
         city_id?: number,
@@ -57,6 +57,9 @@ const Page = () => {
         }
         if (!/^\d+$/.test(formData.price.toString())) {
             newErrors.price = 'Price must contain only numbers.';
+        }
+        if (!/^\d+$/.test(formData.zip_code.toString())) {
+            newErrors.price = 'Zip code must contain only numbers.';
         }
         if (!/^\d+$/.test(formData.area.toString())) {
             newErrors.area = 'Area must contain only numbers.';

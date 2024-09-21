@@ -36,7 +36,7 @@ const Card = ({ listing }: { listing: Listing }) => {
                 <p className='absolute flex items-center justify-center bg-[#021526] bg-opacity-[50%] px-3 py-1 top-5 left-5 text-[12px] font-semibold rounded-[15px] text-white'>{listing.is_rental === 0 ? "იყიდება" : "ქირავდება"}</p>
                 <Image src={listing.image} width={500} height={300} objectFit='fill' alt='Listing Image' className='object-cover h-[350px] rounded-t-[15px]' />
                 <div className='p-[25px] text-[#021526] text-opacity-[70%]'>
-                    <h3 className='text-[28px] font-bold'>{listing.price} ₾</h3>
+                    <h3 className='text-[28px] font-bold'>{listing.price.toLocaleString('en-US')} ₾</h3>
                     <div className='flex items-center gap-2'>
                         <Image src={LocationIcon} alt='location-icon' width={15} height={15} />
                         <p>{listing.address}</p>

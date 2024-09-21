@@ -10,7 +10,7 @@ interface Props {
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
     errors: {
         price?: number,
-        zip_code?: string,
+        zip_code?: number,
         description?: string,
         area?: number,
         city_id?: number,
@@ -38,21 +38,22 @@ const ApartmentDetails = ({ formData, setFormData, errors }: Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+
         if (name === 'price' || name === 'area' || name === 'bedrooms') {
             // Convert to number and validate
             const numValue = Number(value);
             if (!isNaN(numValue) && numValue >= 0) {
-                setFormData({
-                    ...formData,
-                    [name]: numValue,
-                });
+                setFormData(prevData => ({
+                    ...prevData,
+                    [name]: numValue === 0 ? '' : numValue,
+                }));
             }
         } else {
-            setFormData({
-                ...formData,
+            setFormData(prevData => ({
+                ...prevData,
                 [name]: value,
-            });
-        };
+            }));
+        }
     };
 
     const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,7 +194,7 @@ const ApartmentDetails = ({ formData, setFormData, errors }: Props) => {
 
                     {/* Display the photo preview */}
                     {photoPreview ? (
-                        <div className="mt-4 relative">
+                        <div className="my-4 relative">
                             <Image
                                 src={photoPreview}
                                 alt="Photo Preview"

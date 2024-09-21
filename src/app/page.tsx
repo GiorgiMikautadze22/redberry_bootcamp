@@ -6,7 +6,7 @@ import Listings from "./components/listings/Listings";
 
 export default function Home() {
   return (
-    <div className="px-[162px]">
+    <div className="px-[162px] mb-[50px]">
       <div className="flex items-center w-full justify-between">
         <Filter />
         <AddingApplicationsButtons />

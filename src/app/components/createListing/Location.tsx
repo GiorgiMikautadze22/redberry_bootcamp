@@ -10,7 +10,7 @@ interface Props {
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
     errors: {
         price?: number,
-        zip_code?: string,
+        zip_code?: number,
         description?: string,
         area?: number,
         city_id?: number,
@@ -47,10 +47,23 @@ const Location = ({ formData, setFormData, errors }: Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: name === 'region_id' || name === 'city_id' ? Number(value) : value,
-        }));
+
+
+        if (name === 'zip_code') {
+            // Convert to number and validate
+            const numValue = Number(value);
+            if (!isNaN(numValue) && numValue >= 0) {
+                setFormData({
+                    ...formData,
+                    [name]: numValue === 0 ? '' : numValue,
+                });
+            }
+        } else {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: name === 'region_id' || name === 'city_id' ? Number(value) : value,
+            }));
+        }
     };
 
     useEffect(() => {

@@ -27,7 +27,7 @@ const ChooseRegion: React.FC = () => {
         თბილისი: false
     };
 
-    const [selectedRegions, setSelectedRegions] = useState<RegionState>(initialRegionsState)
+    const [selectedRegions, setSelectedRegions] = useState<RegionState>(initialRegionsState);
 
 
     const context = useContext(globalContext);
@@ -39,10 +39,12 @@ const ChooseRegion: React.FC = () => {
             .filter(([_, isSelected]) => isSelected)
             .map(([region, _]) => region);
 
+        localStorage.setItem('selectedRegionNames', JSON.stringify(selectedRegionNames));
         context?.setSelectedRegion(selectedRegionNames);
         // Close the dropdown
 
         setSelectedRegions(initialRegionsState);
+
 
         context?.setIsOpen('');
     };

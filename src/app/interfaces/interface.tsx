@@ -1,6 +1,6 @@
 export interface FormData {
     price: number,
-    zip_code: string,
+    zip_code: number | string,
     description: string,
     area: number,
     city_id: number,
@@ -50,7 +50,7 @@ export interface Listing {
     city: Cities,
     is_rental: number,
     price: number,
-    zip_code: string,
+    zip_code: number,
     area: number,
 
 }

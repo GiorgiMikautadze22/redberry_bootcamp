@@ -9,17 +9,32 @@ import Image from 'next/image'
 const Filter = () => {
     const context = useContext(globalContext);
 
+    const handleRegionRemoval = (region: string) => {
+        context?.setSelectedRegion(context?.selectedRegion.filter((item) => item !== region))
+
+        localStorage.setItem('selectedRegionNames', JSON.stringify(context?.selectedRegion.filter((item) => item !== region)))
+
+    }
+
     const handlePriceRemoval = () => {
         context?.setMinPrice('');
         context?.setMaxPrice('');
+        localStorage.removeItem('minPrice');
+        localStorage.removeItem('maxPrice');
+
     }
     const handleAreaRemoval = () => {
         context?.setMinArea('');
         context?.setMaxArea('');
+        localStorage.removeItem('minArea');
+        localStorage.removeItem('maxArea');
+
     }
 
     const handleBedroomsRemoval = () => {
         context?.setSelectedBedrooms('');
+        localStorage.removeItem('selectedBedrooms');
+
     }
 
     const handleAllClear = () => {
@@ -29,16 +44,24 @@ const Filter = () => {
         context?.setMinArea('');
         context?.setMaxArea('');
         context?.setSelectedBedrooms('');
+
+        localStorage.removeItem('selectedRegionNames');
+        localStorage.removeItem('minPrice');
+        localStorage.removeItem('maxPrice');
+        localStorage.removeItem('minArea');
+        localStorage.removeItem('maxArea');
+        localStorage.removeItem('selectedBedrooms');
+
     }
 
     return (
-        <div className='font-bold text-[16px]'>
+        <div className='flex items-center font-bold text-[16px]'>
             <FilterProperties />
             <div className='mt-5 flex gap-5'>
                 {context?.selectedRegion.map((region) => (
                     <div className={`border-[1px] w-max ${context?.selectedRegion.length === 0 ? "hidden" : "block"} border-[#DBDBDB] py-[5px] px-[20px] flex gap-1 items-center justify-between rounded-[43px]`}>
                         <p>{region}</p>
-                        <Image src={CloseIcon} alt='close' className='cursor-pointer' onClick={() => context?.setSelectedRegion(context?.selectedRegion.filter((item) => item !== region))} />
+                        <Image src={CloseIcon} alt='close' className='cursor-pointer' onClick={() => handleRegionRemoval(region)} />
                     </div>
                 ))}
                 <div className={`border-[1px] w-max ${context?.minPrice.length === 0 && context?.maxPrice.length === 0 ? "hidden" : "block"} border-[#DBDBDB] py-[5px] px-[20px] flex gap-1 items-center justify-between rounded-[43px]`}>

@@ -112,6 +112,24 @@ const AddAgent = () => {
 
             if (response.ok) {
                 console.log("Form submitted successfully");
+
+                // Clear form data
+                setAgentData({
+                    name: '',
+                    surname: '',
+                    email: '',
+                    phone: '',
+                    avatar: '',
+                });
+
+                // Clear errors
+                setErrors({});
+
+                // Clear photo preview
+                setPhotoPreview(null);
+
+                // Close the popup
+                handleConsultButtonClose();
             } else {
                 console.error("Error submitting form:", await response.text());
             }
@@ -303,7 +321,7 @@ const AddAgent = () => {
 
                             {/* Display the photo preview */}
                             {photoPreview ? (
-                                <div className="mt-4 relative">
+                                <div className="my-4 relative">
                                     <Image
                                         src={photoPreview}
                                         alt="Photo Preview"

@@ -19,6 +19,10 @@ const FilterArea: React.FC = () => {
         context?.setMinArea(minArea);
         context?.setMaxArea(maxArea);
 
+        localStorage.setItem('minArea', JSON.stringify(minArea));
+        localStorage.setItem('maxArea', JSON.stringify(maxArea));
+
+
         setSelectedMinArea('')
         setSelectedMaxArea('')
 
@@ -81,14 +85,6 @@ const FilterArea: React.FC = () => {
                             <p className="mb-2 font-medium">მინ. მ²</p>
                             {areaOptions.map((area, index) => (
                                 <label key={`min-${index}`} className="flex items-center mb-2">
-                                    <input
-                                        type="radio"
-                                        name="minArea"
-                                        value={area}
-                                        checked={selectedMinArea === area}
-                                        onChange={() => setSelectedMinArea(area)}
-                                        className="mr-2"
-                                    />
                                     {area} მ²
                                 </label>
                             ))}
@@ -97,14 +93,6 @@ const FilterArea: React.FC = () => {
                             <p className="mb-2 font-medium">მაქს. მ²</p>
                             {areaOptions.map((area, index) => (
                                 <label key={`max-${index}`} className="flex items-center mb-2">
-                                    <input
-                                        type="radio"
-                                        name="maxArea"
-                                        value={area}
-                                        checked={selectedMaxArea === area}
-                                        onChange={() => setSelectedMaxArea(area)}
-                                        className="mr-2"
-                                    />
                                     {area} მ²
                                 </label>
                             ))}

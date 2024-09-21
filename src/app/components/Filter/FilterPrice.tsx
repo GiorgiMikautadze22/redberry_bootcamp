@@ -23,6 +23,10 @@ const FilterPrice: React.FC = () => {
         context?.setMinPrice(selectedMinPrice);
         context?.setMaxPrice(selectedMaxPrice);
 
+        localStorage.setItem('minPrice', JSON.stringify(selectedMinPrice));
+        localStorage.setItem('maxPrice', JSON.stringify(selectedMaxPrice));
+
+
         setSelectedMaxPrice('')
         setSelectedMaxPrice('');
 
@@ -74,14 +78,6 @@ const FilterPrice: React.FC = () => {
                             <p className="mb-2 font-medium">მინ. ფასი</p>
                             {priceOptions.map((price) => (
                                 <label key={`min-${price}`} className="flex items-center mb-2">
-                                    <input
-                                        type="radio"
-                                        name="minPrice"
-                                        value={price}
-                                        checked={selectedMinPrice === price}
-                                        onChange={() => setSelectedMinPrice(price)}
-                                        className="mr-2"
-                                    />
                                     {price} ₾
                                 </label>
                             ))}
@@ -90,14 +86,6 @@ const FilterPrice: React.FC = () => {
                             <p className="mb-2 font-medium">მაქს. ფასი</p>
                             {priceOptions.map((price) => (
                                 <label key={`max-${price}`} className="flex items-center mb-2">
-                                    <input
-                                        type="radio"
-                                        name="maxPrice"
-                                        value={price}
-                                        checked={selectedMaxPrice === price}
-                                        onChange={() => setSelectedMaxPrice(price)}
-                                        className="mr-2"
-                                    />
                                     {price} ₾
                                 </label>
                             ))}

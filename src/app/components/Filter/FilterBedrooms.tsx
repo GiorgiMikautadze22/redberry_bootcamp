@@ -14,6 +14,10 @@ const FilterBedrooms: React.FC = () => {
     const handleApplyFilter = () => {
         // Set the selected min and max price in the global context
         context?.setSelectedBedrooms(bedroomCount);
+
+        localStorage.setItem('selectedBedrooms', JSON.stringify(bedroomCount));
+
+
         setBedroomCount('')
 
         // Close the dropdown
