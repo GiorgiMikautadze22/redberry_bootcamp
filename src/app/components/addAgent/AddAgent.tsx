@@ -215,7 +215,7 @@ const AddAgent = () => {
     return (
         <div className={`w-full h-full fixed bg-black/25 backdrop-blur-sm z-10  ${context?.activePopUp ? "block" : "hidden"}`}>
             <div
-                className="fixed inset-0 top-1/2 left-1/2 z-10 bg-white flex flex-col gap-[60px] items-center justify-center p-[100px] w-[50%] rounded-[10px] h-[70%] -translate-x-1/2 -translate-y-1/2"
+                className="fixed inset-0 top-1/2 left-1/2 z-10 bg-white flex flex-col gap-[30px] items-center justify-center p-[100px] w-[50%] rounded-[10px] h-[70%] -translate-x-1/2 -translate-y-1/2"
                 ref={modalRef}
             >
                 <h3 className="text-[#021526] text-[32px] font-bold">აგენტის დამატება</h3>
@@ -325,9 +325,9 @@ const AddAgent = () => {
                                     <Image
                                         src={photoPreview}
                                         alt="Photo Preview"
-                                        width={200}
-                                        height={200}
-                                        className="w-[200px] h-[200px] object-cover rounded-md border border-[#808A93]"
+                                        width={150}
+                                        height={150}
+                                        className="w-[150px] h-[150px] object-cover rounded-md border border-[#808A93]"
                                     />
                                     <div className='w-[30px] bg-white h-[30px] rounded-full border border-black flex justify-center items-center cursor-pointer absolute right-[-10px] bottom-[-10px]'
                                         onClick={handleRemovePhoto}
