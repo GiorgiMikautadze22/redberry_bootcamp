@@ -6,13 +6,11 @@ import { globalContext } from '../../context/globalContext'
 
 
 const FilterBedrooms: React.FC = () => {
-    // const [isOpen, setIsOpen] = useState(false)
     const [bedroomCount, setBedroomCount] = useState('')
 
     const context = useContext(globalContext);
 
     const handleApplyFilter = () => {
-        // Set the selected min and max price in the global context
         context?.setSelectedBedrooms(bedroomCount);
 
         localStorage.setItem('selectedBedrooms', JSON.stringify(bedroomCount));

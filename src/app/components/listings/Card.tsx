@@ -1,33 +1,12 @@
 import Image from 'next/image'
 import React from 'react'
-import ListingImage from '../../assets/image.svg'
 import LocationIcon from '../../assets/location-marker.svg'
 import BedroomIcon from '../../assets/bed.svg'
 import AreaIcon from '../../assets/areaIcon.svg'
 import ZipCodeIcon from '../../assets/Vector (1).svg'
 import Link from 'next/link'
+import { Listing } from '@/app/interfaces/interface'
 
-
-interface Listing {
-    id: number;
-    address: string;
-    zip_code: string;
-    price: number;
-    area: number;
-    bedrooms: number;
-    is_rental: number;
-    image: string;
-    city_id: number;
-    city: {
-        id: number;
-        name: string;
-        region_id: number;
-        region: {
-            id: number;
-            name: string;
-        }
-    }
-}
 
 const Card = ({ listing }: { listing: Listing }) => {
     return (

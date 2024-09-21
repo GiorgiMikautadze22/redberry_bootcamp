@@ -1,19 +1,13 @@
 "use client"
 
 import { fetchAgents } from '@/app/hooks/fetch';
-import { Agents, FormData } from '@/app/interfaces/interface';
+import { FormData } from '@/app/interfaces/interface';
 import React, { useEffect, useState } from 'react'
+import { Agent } from '@/app/interfaces/interface';
 
 interface Props {
     formData: FormData;
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-}
-
-interface Agent {
-    id: number;
-    name: string;
-    surname: string;
-    avatar: string;
 }
 
 const ChoosingAgent = ({ formData, setFormData }: Props) => {

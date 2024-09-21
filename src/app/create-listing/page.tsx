@@ -6,10 +6,8 @@ import ChoosingAgent from "../components/createListing/ChoosingAgent";
 import TransactionType from "../components/createListing/TransactionType";
 import SubmitButton from "../components/createListing/SubmitButton";
 import { useRouter } from 'next/navigation';
-// import { FormData } from '@/app/interfaces/interface';
 
 const Page = () => {
-    // State to store form data
     const [formData, setFormData] = useState<any>({
         price: '',
         zip_code: "",
@@ -46,8 +44,6 @@ const Page = () => {
     const validateForm = () => {
         const newErrors: { [key: string]: string } = {};
 
-
-
         if (formData.address.length < 2) {
             newErrors.address = 'Address must be at least 2 characters long.';
         }
@@ -80,7 +76,8 @@ const Page = () => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    // Function to handle form submission
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -110,9 +107,6 @@ const Page = () => {
                 newFormData.append('image', formData.image);
             }
 
-            console.log("Form data before sending:", Object.fromEntries(newFormData));
-
-
             const response = await fetch("https://api.real-estate-manager.redberryinternship.ge/api/real-estates", {
                 method: 'POST',
                 headers: {
@@ -121,8 +115,6 @@ const Page = () => {
                 },
                 body: newFormData,
             });
-
-
 
 
             if (response.ok) {

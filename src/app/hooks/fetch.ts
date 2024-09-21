@@ -1,4 +1,3 @@
-import axios from "axios";
 import requests from "./links";
 
 export const fetchCities = async () => {
@@ -53,6 +52,7 @@ export const fetchAgents = async () => {
         console.error("Error fetching data:", error);
     }
 };
+
 export const fetchListings = async () => {
     try {
         const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';
@@ -77,6 +77,7 @@ export const fetchListings = async () => {
         console.error("Error fetching data:", error);
     }
 };
+
 export const deleteListing = async (id: string) => {
     try {
         const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';
@@ -101,6 +102,7 @@ export const deleteListing = async (id: string) => {
         console.error("Error fetching data:", error);
     }
 };
+
 export const fetchListing = async (id: string) => {
     try {
         const token = '9d066257-f384-4952-b0a9-db8b4c7fb512';

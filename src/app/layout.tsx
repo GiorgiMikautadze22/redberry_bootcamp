@@ -5,13 +5,6 @@ import Header from "./components/Header";
 import { GlobalContextProvider } from "./context/globalContext";
 import AddAgent from "./components/addAgent/AddAgent";
 
-// Load FiraGo font with specific weights and styles
-// const firaGo = Fira_Sans({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '700'], // Add desired font weights
-//   style: ['normal', 'italic'], // Add specific styles
-// });
-
 const firaGo = localfont({
   src: [
     {

@@ -1,7 +1,6 @@
 "use client"
 import React, { useContext } from 'react'
 import FilterProperties from './FilterProperties'
-import AddingApplicationsButtons from '../AddingApplicationsButtons'
 import { globalContext } from '@/app/context/globalContext'
 import CloseIcon from "../../assets/x.svg"
 import Image from 'next/image'
@@ -55,11 +54,11 @@ const Filter = () => {
     }
 
     return (
-        <div className='flex items-center font-bold text-[16px]'>
+        <div className='flex flex-col font-bold text-[16px]'>
             <FilterProperties />
             <div className='mt-5 flex gap-5'>
                 {context?.selectedRegion.map((region) => (
-                    <div className={`border-[1px] w-max ${context?.selectedRegion.length === 0 ? "hidden" : "block"} border-[#DBDBDB] py-[5px] px-[20px] flex gap-1 items-center justify-between rounded-[43px]`}>
+                    <div key={region} className={`border-[1px] w-max ${context?.selectedRegion.length === 0 ? "hidden" : "block"} border-[#DBDBDB] py-[5px] px-[20px] flex gap-1 items-center justify-between rounded-[43px]`}>
                         <p>{region}</p>
                         <Image src={CloseIcon} alt='close' className='cursor-pointer' onClick={() => handleRegionRemoval(region)} />
                     </div>

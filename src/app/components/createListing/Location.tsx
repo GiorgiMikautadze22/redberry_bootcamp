@@ -82,43 +82,6 @@ const Location = ({ formData, setFormData, errors }: Props) => {
     }, []);
 
 
-    // const [errors, setErrors] = useState<{
-    //     address?: string;
-    //     zipCode?: string;
-    // }>({});
-
-
-
-
-    // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // };
-
-    // const validateForm = () => {
-    //     const newErrors: { address?: string; zipCode?: string } = {};
-
-    //     // Address validation (min 2 characters)
-    //     if (formData.address.length < 2) {
-    //         newErrors.address = 'Address must be at least 2 characters long.';
-    //     }
-
-    //     // ZIP code validation (only numbers)
-    //     if (!/^\d+$/.test(formData.zipCode)) {
-    //         newErrors.zipCode = 'ZIP code must contain only numbers.';
-    //     }
-
-    //     setErrors(newErrors);
-
-    //     // Return true if there are no validation errors
-    //     return Object.keys(newErrors).length === 0;
-    // };
-
-
-
     return (
         <div>
             <p className='text-[16px] font-medium font-helveticaNeue uppercase'>მდებარეობა</p>

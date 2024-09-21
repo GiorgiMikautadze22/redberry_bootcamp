@@ -25,16 +25,9 @@ interface Props {
 
 const ApartmentDetails = ({ formData, setFormData, errors }: Props) => {
 
-
-
-
     const [photoPreview, setPhotoPreview] = useState<string | null>(null); // To hold the photo preview URL
 
     const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref to access the file input
-
-
-
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -230,15 +223,6 @@ const ApartmentDetails = ({ formData, setFormData, errors }: Props) => {
                 }
 
             </div>
-
-            {/* Submit Button */}
-            {/* <button
-                type="submit"
-                onClick={validateForm}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-            >
-                Submit
-            </button> */}
         </div>
     )
 }

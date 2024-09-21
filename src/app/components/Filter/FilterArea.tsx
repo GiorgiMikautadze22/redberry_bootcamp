@@ -7,24 +7,16 @@ import { globalContext } from '@/app/context/globalContext'
 const FilterArea: React.FC = () => {
     const [minArea, setMinArea] = useState('')
     const [maxArea, setMaxArea] = useState('')
-    const [selectedMinArea, setSelectedMinArea] = useState('')
-    const [selectedMaxArea, setSelectedMaxArea] = useState('')
-
 
 
     const context = useContext(globalContext);
 
     const handleApplyFilter = () => {
-        // Set the selected min and max price in the global context
         context?.setMinArea(minArea);
         context?.setMaxArea(maxArea);
 
         localStorage.setItem('minArea', JSON.stringify(minArea));
         localStorage.setItem('maxArea', JSON.stringify(maxArea));
-
-
-        setSelectedMinArea('')
-        setSelectedMaxArea('')
 
         // Close the dropdown
         context?.setIsOpen('');

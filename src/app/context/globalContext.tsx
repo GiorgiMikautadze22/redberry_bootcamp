@@ -1,30 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
+import { ContextType } from "../interfaces/interface";
 
-interface ContextType {
-    activePopUp: boolean;
-    setActivePopUp: React.Dispatch<React.SetStateAction<boolean>>;
-    agentDelete: boolean;
-    setAgentDelete: React.Dispatch<React.SetStateAction<boolean>>;
-    isOpen: string;
-    setIsOpen: React.Dispatch<React.SetStateAction<string>>;
-    Listings: any[];
-    setListings: React.Dispatch<React.SetStateAction<any[]>>;
-    filteredListings: any[];
-    setFilteredListings: React.Dispatch<React.SetStateAction<any[]>>;
-    minPrice: string;
-    setMinPrice: React.Dispatch<React.SetStateAction<string>>;
-    maxPrice: string;
-    setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
-    selectedRegion: string[];
-    setSelectedRegion: React.Dispatch<React.SetStateAction<string[]>>;
-    minArea: string;
-    setMinArea: React.Dispatch<React.SetStateAction<string>>;
-    maxArea: string;
-    setMaxArea: React.Dispatch<React.SetStateAction<string>>;
-    selectedBedrooms: string;
-    setSelectedBedrooms: React.Dispatch<React.SetStateAction<string>>;
-}
 
 export const globalContext = createContext<ContextType | null>(null);
 
@@ -52,9 +29,6 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
     const [selectedBedrooms, setSelectedBedrooms] = useState(storeBedrooms ? JSON.parse(storeBedrooms) : '');
 
     const handleFiltering = () => {
-
-        // const storedData = localStorage.getItem('filteredListings');
-        // let updatedListings = storedData ? JSON.parse(storedData) : Listings;
 
         let updatedListings = Listings;
 
@@ -85,15 +59,13 @@ export const GlobalContextProvider = ({ children }: { children: React.ReactNode 
         // Set the final filtered listings
         setFilteredListings(updatedListings);
 
-        // Store filtered listings in localStorage
-        // localStorage.setItem('filteredListings', JSON.stringify(updatedListings));
+
     };
 
     useEffect(() => {
         handleFiltering();
     }, [selectedRegion, minPrice, maxPrice, Listings, minArea, maxArea, selectedBedrooms]);
 
-    // Load filtered data from localStorage when the page refreshes
 
 
     return (

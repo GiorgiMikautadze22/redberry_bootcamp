@@ -42,7 +42,7 @@ const page = ({ params }: { params: { slug: string } }) => {
         },
         is_rental: 0,
         price: 0,
-        zip_code: '',
+        zip_code: 0,
         area: 0,
     });
     const [filteredByRegion, setFilteredByRegion] = useState<any[]>([]);
@@ -67,7 +67,7 @@ const page = ({ params }: { params: { slug: string } }) => {
     useEffect(() => {
         const fetchDataFromApi = async () => {
             try {
-                const singleListing = (await fetchListing(params.slug)) as SetStateAction<Listing>;
+                const singleListing = (await fetchListing(params.slug)) as Listing;
                 setListing(singleListing);
 
                 const allListings = (await fetchListings()) as any[];
@@ -151,7 +151,7 @@ const page = ({ params }: { params: { slug: string } }) => {
                         <p>{listing.is_rental === 0 ? "იყიდება" : "ქირავდება"}</p>
                     </div>
                     <Image src={BackArrow} alt="backArrow" className='cursor-pointer mb-[20px]' onClick={() => router.push('/')} />
-                    <Image src={listing.image} alt='listing' width={840} height={670} className='rounded-[10px] w-[840px] h-[670px]' objectFit='cover' />
+                    <Image src={listing.image || "https://user-images.githubusercontent.com/20684618/31289519-9ebdbe1a-aae6-11e7-8f82-bf794fdd9d1a.png"} alt='listing' width={840} height={670} className='rounded-[10px] w-[840px] h-[670px]' objectFit='cover' />
                     <p className='w-full text-right mt-[5px] text-[#808A93]'>გამოქვეყნების თარიღი {new Date(listing.created_at).toLocaleDateString('en-US', {
                         year: '2-digit',
                         month: '2-digit',
@@ -184,7 +184,7 @@ const page = ({ params }: { params: { slug: string } }) => {
                     </p>
                     <div className='mt-[30px] p-[20px] border-[1px] border-[#E1E1E1] rounded-[10px]'>
                         <div className='flex gap-[10px] items-center'>
-                            <Image src={listing.agent.avatar} alt="avatar" width={72} height={72} className='rounded-full w-[72px] h-[72px]' objectFit='contain' />
+                            <Image src={listing.agent.avatar || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="avatar" width={72} height={72} className='rounded-full w-[72px] h-[72px]' objectFit='contain' />
                             <div>
                                 <p>{listing.agent.name + " " + listing.agent.surname}</p>
                                 <p className='text-[#676E76]'>აგენტი</p>

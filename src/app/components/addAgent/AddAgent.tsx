@@ -143,9 +143,9 @@ const AddAgent = () => {
     const context = useContext(globalContext);
     const modalRef = useRef<HTMLDivElement>(null);
 
-    const [photoPreview, setPhotoPreview] = useState<string | null>(null); // To hold the photo preview URL
+    const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
-    const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref to access the file input
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleConsultButtonClose = () => {
         context?.setActivePopUp && context?.setActivePopUp(false);

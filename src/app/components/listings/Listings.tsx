@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Card from './Card'
 import { fetchListings } from '@/app/hooks/fetch';
 import { globalContext } from '@/app/context/globalContext';
@@ -8,11 +8,7 @@ import { globalContext } from '@/app/context/globalContext';
 
 const Listings = () => {
 
-
     const context = useContext(globalContext);
-
-
-
 
     useEffect(() => {
         const fetchDataFromApi = async () => {

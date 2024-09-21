@@ -19,7 +19,6 @@ const FilterPrice: React.FC = () => {
     }
 
     const handleApplyFilter = () => {
-        // Set the selected min and max price in the global context
         context?.setMinPrice(selectedMinPrice);
         context?.setMaxPrice(selectedMaxPrice);
 

@@ -13,6 +13,8 @@ const nextConfig = {
                 pathname: '/storage/agent_avatars/**', // Match the specific path for agent avatars
             },
         ],
+        domains: ['user-images.githubusercontent.com', "cdn.pixabay.com"], // Add the domain here
+
     },
 };
 

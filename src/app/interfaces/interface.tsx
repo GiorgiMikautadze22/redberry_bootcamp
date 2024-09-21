@@ -31,6 +31,38 @@ export interface Agents {
     avatar: string | File | null;
 }
 
+export interface Agent {
+    id: number;
+    name: string;
+    surname: string;
+    avatar: string;
+}
+
+export interface ContextType {
+    activePopUp: boolean;
+    setActivePopUp: React.Dispatch<React.SetStateAction<boolean>>;
+    agentDelete: boolean;
+    setAgentDelete: React.Dispatch<React.SetStateAction<boolean>>;
+    isOpen: string;
+    setIsOpen: React.Dispatch<React.SetStateAction<string>>;
+    Listings: any[];
+    setListings: React.Dispatch<React.SetStateAction<any[]>>;
+    filteredListings: any[];
+    setFilteredListings: React.Dispatch<React.SetStateAction<any[]>>;
+    minPrice: string;
+    setMinPrice: React.Dispatch<React.SetStateAction<string>>;
+    maxPrice: string;
+    setMaxPrice: React.Dispatch<React.SetStateAction<string>>;
+    selectedRegion: string[];
+    setSelectedRegion: React.Dispatch<React.SetStateAction<string[]>>;
+    minArea: string;
+    setMinArea: React.Dispatch<React.SetStateAction<string>>;
+    maxArea: string;
+    setMaxArea: React.Dispatch<React.SetStateAction<string>>;
+    selectedBedrooms: string;
+    setSelectedBedrooms: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export interface Listing {
     address: string,
     agent: {

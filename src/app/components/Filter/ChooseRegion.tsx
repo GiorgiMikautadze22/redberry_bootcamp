@@ -1,9 +1,8 @@
 "use client"
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import DropDownIcon from '../../assets/Icon.svg'
 import Image from 'next/image';
 import { globalContext } from '@/app/context/globalContext';
-import Listings from '../listings/Listings';
 
 interface RegionState {
     [key: string]: boolean;
@@ -34,18 +33,17 @@ const ChooseRegion: React.FC = () => {
 
 
     const handleApplyFilter = () => {
-        // Set selected regions in the global context
         const selectedRegionNames = Object.entries(selectedRegions)
             .filter(([_, isSelected]) => isSelected)
             .map(([region, _]) => region);
 
         localStorage.setItem('selectedRegionNames', JSON.stringify(selectedRegionNames));
         context?.setSelectedRegion(selectedRegionNames);
-        // Close the dropdown
 
         setSelectedRegions(initialRegionsState);
 
 
+        // Close the dropdown
         context?.setIsOpen('');
     };
 

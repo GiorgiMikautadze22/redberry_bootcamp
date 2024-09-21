@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { FormData } from '@/app/interfaces/interface';
 
 
-
 interface Props {
     formData: FormData;
     setFormData: React.Dispatch<React.SetStateAction<FormData>>;
