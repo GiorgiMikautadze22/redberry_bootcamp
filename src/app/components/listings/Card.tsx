@@ -13,7 +13,7 @@ const Card = ({ listing }: { listing: Listing }) => {
         <Link href={`/single-listing/${listing.id}`} >
             <div className='relative border border-[#DBDBDB] rounded-[14px] hover:shadow-custom cursor-pointer transition-all'>
                 <p className='absolute flex items-center justify-center bg-[#021526] bg-opacity-[50%] px-3 py-1 top-5 left-5 text-[12px] font-semibold rounded-[15px] text-white'>{listing.is_rental === 0 ? "იყიდება" : "ქირავდება"}</p>
-                <Image src={listing.image} width={500} height={300} objectFit='fill' alt='Listing Image' className='object-cover h-[350px] rounded-t-[15px]' />
+                <Image src={listing.image} width={500} height={300} objectFit='fill' alt='Listing Image' className='object-cover h-[350px] rounded-t-[14px]' />
                 <div className='p-[25px] text-[#021526] text-opacity-[70%]'>
                     <h3 className='text-[28px] font-bold'>{listing.price.toLocaleString('en-US')} ₾</h3>
                     <div className='flex items-center gap-2'>
