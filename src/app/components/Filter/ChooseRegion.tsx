@@ -34,8 +34,8 @@ const ChooseRegion: React.FC = () => {
 
     const handleApplyFilter = () => {
         const selectedRegionNames = Object.entries(selectedRegions)
-            .filter(([_, isSelected]) => isSelected)
-            .map(([region, _]) => region);
+            .filter(([, isSelected]) => isSelected)
+            .map(([region,]) => region);
 
         localStorage.setItem('selectedRegionNames', JSON.stringify(selectedRegionNames));
         context?.setSelectedRegion(selectedRegionNames);

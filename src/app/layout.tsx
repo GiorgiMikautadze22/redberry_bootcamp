@@ -5,16 +5,16 @@ import Header from "./components/Header";
 import { GlobalContextProvider } from "./context/globalContext";
 import AddAgent from "./components/addAgent/AddAgent";
 
-const firaGo = localfont({
-  src: [
-    {
-      path: './fonts/FiraGo-Regular.otf',
-      weight: '400',
-      style: 'normal',
-    },
-  ],
-  variable: "--font-fira-go",
-});
+// const firaGo = localfont({
+//   src: [
+//     {
+//       path: './fonts/FiraGo-Regular.otf',
+//       weight: '400',
+//       style: 'normal',
+//     },
+//   ],
+//   variable: "--font-fira-go",
+// });
 
 const helveticaNeue = localfont({
   src: [
@@ -42,7 +42,7 @@ export default function RootLayout({
       <GlobalContextProvider >
 
         <body
-          className={firaGo.variable + " " + helveticaNeue.variable}
+          className={helveticaNeue.variable}
         >
           <AddAgent />
           <Header />

@@ -20,6 +20,7 @@ export interface Regions {
 export interface Cities {
     id: number;
     name: string;
+    region: Regions;
     region_id: number;
 }
 

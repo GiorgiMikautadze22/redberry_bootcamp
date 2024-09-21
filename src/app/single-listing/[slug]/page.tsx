@@ -38,6 +38,10 @@ const page = ({ params }: { params: { slug: string } }) => {
         city: {
             id: 0,
             name: '',
+            region: {
+                id: 0,
+                name: '',
+            },
             region_id: 0,
         },
         is_rental: 0,

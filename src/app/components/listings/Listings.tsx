@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import Card from './Card'
 import { fetchListings } from '@/app/hooks/fetch';
 import { globalContext } from '@/app/context/globalContext';
+import { Listing } from '@/app/interfaces/interface';
 
 
 
@@ -13,7 +14,7 @@ const Listings = () => {
     useEffect(() => {
         const fetchDataFromApi = async () => {
             try {
-                const data = (await fetchListings()) as any[];
+                const data = (await fetchListings()) as Listing[];
                 context?.setListings(data);
             } catch (error) {
                 console.error("Error fetching data:", error);
